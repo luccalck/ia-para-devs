@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop: IA para Devs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           1. SETUP E VARIÁVEIS GLOBAIS
+           ========================================= */
+        :root {
+            --bg-base: #09090b;       
+            --bg-surface: #18181b;    
+            --bg-surface-alt: #27272a;
+            --text-title: #f8fafc;    
+            --text-body: #94a3b8;     
+            --accent-green: #10b981;  
+            --accent-green-dim: rgba(16, 185, 129, 0.15);
+            --accent-red: #ef4444;    
+            --accent-red-dim: rgba(239, 68, 68, 0.15);
+            --accent-orange: #f97316; 
+            --accent-blue: #3b82f6;   
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base); /* Fundo igual ao da apresentação para imersão total */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; 
+        }
+
+        #presentation-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            transform-origin: center center;
+            border-radius: 0; /* Removido para preencher a tela */
+            background-color: var(--bg-base);
+            flex-shrink: 0; 
+        }
+
+        /* =========================================
+           2. ESTRUTURA DOS SLIDES
+           ========================================= */
+        .slide-container {
+            position: absolute; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0; /* Removido para preencher a tela */
+            background-color: var(--bg-base);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 0;
+            transition: opacity 0.4s ease-in-out, visibility 0.4s;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 80px;
+            color: var(--text-title);
+        }
+
+        .slide-container.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
+
+        .slide-container.bleed-image-layout {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            align-items: start;
+            padding: 0;
+        }
+
+        /* =========================================
+           3. TIPOGRAFIA CONSISTENTE
+           ========================================= */
+        h1, h2, h3, h4 { color: var(--text-title); margin: 0; line-height: 1.2; font-weight: 700; }
+        
+        .slide-container h1 { font-size: 80px; font-weight: 800; letter-spacing: -2px; }
+        .slide-container h2.slide-title { font-size: 56px; margin-bottom: 40px; color: var(--accent-green); border-bottom: 2px solid var(--bg-surface-alt); padding-bottom: 15px; width: 100%; text-align: left; }
+        .slide-container h3 { font-size: 32px; font-weight: 600; margin-bottom: 15px; }
+        
+        .slide-container p, .slide-container li { font-size: 22px; line-height: 1.6; color: var(--text-body); }
+        .slide-container strong { color: var(--text-title); }
+
+        .text-green { color: var(--accent-green) !important; }
+        .text-red { color: var(--accent-red) !important; }
+        .text-orange { color: var(--accent-orange) !important; }
+        .text-blue { color: var(--accent-blue) !important; }
+
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* =========================================
+           4. PLACEHOLDERS DE IMAGEM DESCRITIVOS
+           ========================================= */
+        .image-placeholder-box {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-surface-alt);
+            border: 2px dashed var(--text-body);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+            color: #cbd5e1;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .image-placeholder-box i { font-size: 48px; margin-bottom: 20px; color: var(--accent-green); }
+
+        /* =========================================
+           5. LAYOUTS ESPECÍFICOS
+           ========================================= */
+        .bleed-image-layout .content-container { padding: 80px; display: flex; flex-direction: column; justify-content: center; height: 100%; }
+        .bleed-image-layout .image-container { width: 100%; height: 720px; overflow: hidden; background-color: #000; }
+        .bleed-image-layout img.bleed-image-side { width: 100%; height: 720px; object-fit: cover; object-position: center; display: block; opacity: 0.8;}
+
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; width: 100%; align-items: center; }
+        .image-wrapper { width: 100%; height: 400px; border-radius: 16px; overflow: hidden; }
+        .image-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
+        /* Novo Frame para a Imagem de Capa */
+        .framed-image { width: 100%; height: 450px; border-radius: 24px; border: 2px solid var(--accent-green); box-shadow: 0 0 40px rgba(16, 185, 129, 0.2); padding: 10px; background-color: var(--bg-surface); }
+        .framed-image img { border-radius: 16px; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .tiled-content { display: flex; gap: 40px; width: 100%; align-items: stretch; justify-content: center; }
+        .tile { flex: 1; background-color: var(--bg-surface); border: 1px solid var(--bg-surface-alt); border-radius: 16px; padding: 40px 30px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .tile i.icon { font-size: 56px; color: var(--accent-green); margin-bottom: 25px; }
+
+        .center-layout { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; }
+        .center-layout i { font-size: 100px; color: var(--bg-surface-alt); margin-bottom: 40px; }
+
+        ul.custom-list { list-style: none; padding: 0; }
+        ul.custom-list li { position: relative; padding-left: 30px; margin-bottom: 20px; }
+        ul.custom-list li::before { content: "\f0da"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--accent-green); position: absolute; left: 0; top: 2px; }
+
+        /* =========================================
+           6. SIMULADORES DE UI (MOCK WINDOWS)
+           ========================================= */
+        .mock-window { background-color: var(--bg-surface); border: 1px solid #3f3f46; border-radius: 12px; overflow: hidden; width: 100%; height: 480px; display: flex; flex-direction: column; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+        .mock-header { background-color: #000; height: 40px; border-bottom: 1px solid #3f3f46; display: flex; align-items: center; padding: 0 15px; gap: 8px; }
+        .mock-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-r { background-color: #ef4444; } .dot-y { background-color: #f59e0b; } .dot-g { background-color: #10b981; }
+        .mock-title { color: #71717a; font-size: 14px; font-family: 'JetBrains Mono', monospace; margin-left: 15px; }
+        .mock-body { display: flex; flex-grow: 1; overflow: hidden; background-color: #121214; }
+
+        /* Chat Simples */
+        .chat-container { padding: 30px; display: flex; flex-direction: column; gap: 20px; width: 100%; }
+        .chat-bubble { max-width: 80%; padding: 20px; border-radius: 12px; font-size: 20px; line-height: 1.5; }
+        .bubble-user { background-color: var(--bg-surface-alt); align-self: flex-end; border-bottom-right-radius: 4px; color: #fff;}
+        .bubble-ai { background-color: var(--accent-green-dim); border: 1px solid rgba(16, 185, 129, 0.3); align-self: flex-start; border-bottom-left-radius: 4px; color: #fff;}
+        .bubble-ai-red { background-color: var(--accent-red-dim); border: 1px solid rgba(239, 68, 68, 0.3); align-self: flex-start; border-bottom-left-radius: 4px; color: #fff;}
+
+        /* DeepResearch UI */
+        .dr-ui { padding: 30px; display: flex; flex-direction: column; width: 100%; gap: 20px; overflow-y: auto;}
+        .dr-search { background: var(--bg-base); border: 1px solid var(--bg-surface-alt); padding: 15px 20px; border-radius: 8px; font-size: 20px; display: flex; align-items: center; gap: 15px; color: #fff; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);}
+        .dr-content-area { display: flex; flex-direction: column; gap: 20px; }
+        .dr-summary { background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); padding: 25px; border-radius: 8px; border-left: 4px solid var(--accent-green); }
+        .dr-summary h4 { color: var(--accent-green); font-size: 16px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .dr-summary p { font-size: 16px; color: #e2e8f0; line-height: 1.6; margin: 0; }
+        .dr-cards-title { font-size: 14px; color: var(--text-body); text-transform: uppercase; font-weight: 700; margin-top: 10px; }
+        .dr-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .dr-source { background: var(--bg-surface-alt); padding: 15px; border-radius: 8px; border: 1px solid #3f3f46; display: flex; flex-direction: column; gap: 8px;}
+        .dr-source-domain { font-size: 12px; color: var(--accent-green); font-weight: 700; display: flex; align-items: center; gap: 6px;}
+        .dr-source-title { font-size: 14px; color: #fff; line-height: 1.4; font-weight: 500; }
+
+        /* Split Screen (Canvas) */
+        .split-ui { display: flex; width: 100%; height: 100%; }
+        .split-left { width: 35%; border-right: 1px solid #3f3f46; padding: 20px; background: var(--bg-base); display: flex; flex-direction: column; gap: 15px; overflow-y: auto;}
+        .split-right { width: 65%; padding: 25px; background: #000; font-family: 'JetBrains Mono', monospace; font-size: 15px; color: #a8b2d1; overflow-y: auto; line-height: 1.6;}
+        
+        .kw { color: #c678dd; } .fn { color: #61afef; } .vr { color: #e5c07b; } .st { color: #98c379; } .cm { color: #5c6370; font-style: italic; } .op { color: #56b6c2; }
+        .code-highlight-bg { background-color: rgba(16, 185, 129, 0.15); display: block; padding: 2px 5px; border-radius: 4px; border-left: 3px solid var(--accent-green); margin: 5px 0;}
+        .code-deleted-bg { background-color: rgba(239, 68, 68, 0.15); display: block; padding: 2px 5px; border-radius: 4px; border-left: 3px solid var(--accent-red); margin: 5px 0; text-decoration: line-through; opacity: 0.7;}
+
+        /* NotebookLM UI */
+        .nl-ui { display: flex; width: 100%; height: 100%; }
+        .nl-sidebar { width: 28%; border-right: 1px solid #3f3f46; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: var(--bg-base); }
+        .nl-doc { background: var(--bg-surface); border: 1px solid var(--bg-surface-alt); padding: 12px 15px; border-radius: 8px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #e2e8f0; transition: border-color 0.2s;}
+        .nl-main { width: 72%; padding: 30px; display: flex; flex-direction: column; gap: 25px; background: #121214; overflow-y: auto;}
+        
+        .audio-card { background: var(--bg-surface); border: 1px solid var(--accent-green); padding: 25px; border-radius: 16px; display: flex; flex-direction: column; gap: 15px;}
+        .audio-header { display: flex; justify-content: space-between; align-items: center;}
+        .audio-title { font-size: 18px; font-weight: 600; color: #fff;}
+        .audio-badge { background: var(--accent-green-dim); color: var(--accent-green); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;}
+        .audio-player-controls { display: flex; align-items: center; gap: 20px; }
+        .audio-wave { flex-grow: 1; height: 6px; background: #3f3f46; position: relative; border-radius: 3px; overflow: hidden;}
+        .audio-wave::after { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 45%; background: var(--accent-green); }
+        
+        .nl-notes { background: var(--bg-surface); padding: 25px; border-radius: 16px; border: 1px solid var(--bg-surface-alt); display: flex; flex-direction: column; gap: 15px;}
+        .nl-notes h3 { font-size: 18px; color: #fff; margin-bottom: 5px; display: flex; align-items: center; gap: 10px;}
+        .nl-notes ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;}
+        .nl-notes li { font-size: 15px; color: #cbd5e1; padding-left: 20px; position: relative; line-height: 1.5;}
+        .nl-notes li::before { content: "•"; position: absolute; left: 0; color: var(--accent-orange); font-weight: bold; font-size: 18px;}
+
+        /* Anatomia do Prompt */
+        .anatomy-box { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+        .anatomy-row { display: flex; align-items: center; background: var(--bg-surface); border: 1px solid var(--bg-surface-alt); padding: 25px; border-radius: 12px; border-left: 6px solid; }
+        .anatomy-row.persona { border-left-color: var(--accent-green); } .anatomy-row.tarefa { border-left-color: #3b82f6; } .anatomy-row.restricao { border-left-color: var(--accent-orange); }
+        .anatomy-badge { width: 180px; font-family: 'JetBrains Mono'; font-weight: 700; text-transform: uppercase; font-size: 18px; }
+        .anatomy-row.persona .anatomy-badge { color: var(--accent-green); } .anatomy-row.tarefa .anatomy-badge { color: #3b82f6; } .anatomy-row.restricao .anatomy-badge { color: var(--accent-orange); }
+
+        /* Step by Step Desafio */
+        .challenge-box { display: flex; gap: 20px; height: 100%; align-items: stretch;}
+        .step-card { flex: 1; background: var(--bg-surface); border: 1px solid var(--bg-surface-alt); border-radius: 12px; padding: 30px; display: flex; flex-direction: column; position: relative;}
+        .step-number { width: 40px; height: 40px; background: var(--bg-surface-alt); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; color: #fff; margin-bottom: 20px;}
+        .step-card h4 { font-size: 20px; margin-bottom: 15px; color: #fff;}
+        .step-card p { font-size: 16px; color: var(--text-body); line-height: 1.5; margin-bottom: 15px;}
+        .step-card .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; font-family: 'JetBrains Mono'; margin-top: auto;}
+
+        /* Terminal Crash */
+        .terminal-crash { background: #000; padding: 40px; border-radius: 12px; border: 1px solid #333; font-family: 'JetBrains Mono'; font-size: 24px; line-height: 1.8; color: #fff; width: 100%; box-shadow: 0 0 40px rgba(239, 68, 68, 0.2);}
+        
+        .qr-wrapper { background: #fff; border-radius: 16px; display: flex; justify-content: center; align-items: center;}
+        .qr-wrapper img { width: 100%; height: 100%; }
+
+        /* Controles Fixos no Body */
+        .controls { position: fixed; bottom: 40px; right: 40px; z-index: 100; display: flex; gap: 20px; align-items: center; }
+        .btn { background-color: var(--bg-surface); color: var(--text-title); border: 1px solid #3f3f46; width: 60px; height: 60px; border-radius: 50%; cursor: pointer; font-size: 24px; display: flex; justify-content: center; align-items: center; transition: all 0.2s; }
+        .btn:hover { background-color: var(--accent-green); border-color: var(--accent-green); color: #000;}
+        .slide-counter { font-size: 18px; color: var(--text-body); font-variant-numeric: tabular-nums; font-weight: 600; background: var(--bg-surface); padding: 10px 20px; border-radius: 20px; border: 1px solid #3f3f46;}
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+
+        <!-- Slide 1: Capa (Agora com Moldura e Active direto) -->
+        <div class="slide-container active" id="slide1">
+            <div class="content-area">
+                <div class="two-column">
+                    <div>
+                        <h4 style="color: var(--accent-green); font-size: 24px; margin-bottom: 20px; font-family: 'JetBrains Mono';">WORKSHOP OFICIAL</h4>
+                        <h1 style="margin-bottom: 20px;">IA para Devs</h1>
+                        <p style="font-size: 28px; color: #fff; margin-bottom: 40px;">Domine o raciocínio.<br>Não apenas o prompt.</p>
+                        <p style="font-size: 18px; color: var(--text-body);">Projeto de Extensão • UniSENAI-SP</p>
+                    </div>
+                    <div>
+                        <div class="framed-image">
+                            <!-- Imagem Tecnológica Real (Unsplash) -->
+                            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&q=80" alt="Fundo tecnológico de código verde estilo Matrix">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: A Equipe -->
+        <div class="slide-container" id="slide2">
+            <h2 class="slide-title">Quem Somos?</h2>
+            <div class="content-area">
+                <div class="two-column">
+                    <div>
+                        <h3>Equipe IA para Devs</h3>
+                        <p style="margin-bottom: 30px;">Alunos de <strong>Análise e Desenvolvimento de Sistemas</strong> (ADS) do UniSENAI.</p>
+                        <ul class="custom-list">
+                            <li>Focados em combater o uso preguiçoso da IA.</li>
+                            <li>Criadores da plataforma educacional gratuita.</li>
+                            <li>Transformando tecnologia em metodologia de ensino.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="image-wrapper" style="height: 450px;">
+                            <div class="image-placeholder-box">
+                                <i class="fa-solid fa-users"></i>
+                                FOTO DA EQUIPE OU ESTUDANTES:<br>
+                                Grupo diversificado de alunos programando num portátil, ambiente universitário ou moderno.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: O Problema -->
+        <div class="slide-container" id="slide3">
+            <h2 class="slide-title">Você sabe o que é <span class="text-orange">Vibecoding</span>?</h2>
+            <div class="content-area">
+                <div class="tiled-content">
+                    <div class="tile" style="border-color: rgba(249, 115, 22, 0.4);">
+                        <i class="icon fa-solid fa-ghost text-orange"></i>
+                        <h3 class="text-orange">Gerar, Colar e Rezar</h3>
+                        <p>Você pede o código, cola no projeto, e funciona... mas você <strong>não faz a menor ideia do porquê</strong>.</p>
+                    </div>
+                    <div class="tile">
+                        <i class="icon fa-solid fa-brain" style="color: var(--bg-surface-alt);"></i>
+                        <h3 style="color: var(--text-body);">O Cérebro Terceirizado</h3>
+                        <p>O Vibecoder programa por intuição cega. Ele pula a etapa de aprendizado e deixa a máquina pensar por ele.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: A Caixa Preta -->
+        <div class="slide-container" id="slide4">
+            <h2 class="slide-title text-red" style="border-bottom-color: rgba(239,68,68,0.2);">A Caixa Preta</h2>
+            <div class="content-area">
+                <div class="terminal-crash">
+                    <span style="color: #64748b;">// Iniciando compilação do carrinho_de_compras.js...</span><br><br>
+                    <span style="color: #ef4444; font-weight: 700;">> FATAL ERROR: Uncaught TypeError</span><br>
+                    <span style="color: #fca5a5;">> Cannot read properties of undefined (reading 'price')</span><br>
+                    <span style="color: #fca5a5;">> at calculateTotal (api.js:104:22)</span><br><br>
+                    <span style="color: #fbbf24;">[Sistema Travado] O cliente não consegue finalizar a compra.</span>
+                </div>
+                <p style="margin-top: 40px; text-align: center; font-size: 26px;"><strong>A IA gerou de graça. Mas quem sabe consertar?</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Chat UI (Errado) -->
+        <div class="slide-container" id="slide5">
+            <h2 class="slide-title">O Jeito Comum <span class="text-red">(Errado)</span></h2>
+            <div class="content-area">
+                <div class="mock-window" style="border-color: rgba(239, 68, 68, 0.4);">
+                    <div class="mock-header">
+                        <div class="mock-dot dot-r"></div><div class="mock-dot dot-y"></div><div class="mock-dot dot-g"></div>
+                        <span class="mock-title">chatbot_preguiçoso.exe</span>
+                    </div>
+                    <div class="mock-body">
+                        <div class="chat-container">
+                            <div class="chat-bubble bubble-user">
+                                Faz o código pra mim de um sistema de notas que aprova quem tira mais que 7.
+                            </div>
+                            <div class="chat-bubble bubble-ai-red">
+                                <i class="fa-solid fa-robot" style="margin-right: 10px;"></i> 
+                                Claro! Aqui está:<br><br>
+                                <span style="font-family: 'JetBrains Mono'; color: #cbd5e1;">function check(n) { return n >= 7 ? 'Aprovado' : 'Reprovado'; }</span><br><br>
+                                Pronto para colar!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Chat UI (Certo) -->
+        <div class="slide-container" id="slide6">
+            <h2 class="slide-title">O Uso do Engenheiro <span class="text-green">(Certo)</span></h2>
+            <div class="content-area">
+                <div class="mock-window" style="border-color: var(--accent-green);">
+                    <div class="mock-header">
+                        <div class="mock-dot dot-r"></div><div class="mock-dot dot-y"></div><div class="mock-dot dot-g"></div>
+                        <span class="mock-title">mentor_socratico.exe</span>
+                    </div>
+                    <div class="mock-body">
+                        <div class="chat-container">
+                            <div class="chat-bubble bubble-user">
+                                Como eu estruturo a lógica para verificar se um aluno passou de ano? Não me dê código, explique o fluxo.
+                            </div>
+                            <div class="chat-bubble bubble-ai">
+                                <i class="fa-solid fa-chalkboard-user" style="margin-right: 10px;"></i> 
+                                Pense como um segurança na porta de uma festa:<br>
+                                1. Ele pede a identidade (A Nota).<br>
+                                2. Ele compara com a regra (É maior ou igual a 7?).<br>
+                                3. Ele libera a entrada ou barra (Aprovado/Reprovado).<br><br>
+                                Quer tentar escrever o "Passo 2" em linguagem lógica?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Mudança de Paradigma -->
+        <div class="slide-container" id="slide7">
+            <h2 class="slide-title">Mudança de Paradigma</h2>
+            <div class="content-area">
+                <div class="tiled-content">
+                    <div class="tile" style="border-color: rgba(239, 68, 68, 0.3);">
+                        <i class="icon fa-solid fa-calculator text-red"></i>
+                        <h3 class="text-red">A IA como Calculadora</h3>
+                        <p>Você dá o problema, ela dá o resultado. <br><br><strong>Gera Dependência.</strong></p>
+                    </div>
+                    <div class="tile" style="border-color: rgba(16, 185, 129, 0.4); background-color: rgba(16,185,129,0.05);">
+                        <i class="icon fa-solid fa-chalkboard-user text-green"></i>
+                        <h3 class="text-green">A IA como Professora</h3>
+                        <p>Você dá o problema, ela dá pistas e guia o seu raciocínio. <br><br><strong>Gera Evolução.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: O Ecossistema Avançado -->
+        <div class="slide-container" id="slide8">
+            <h2 class="slide-title">O Ecossistema Avançado</h2>
+            <div class="content-area">
+                <div class="tiled-content">
+                    <div class="tile">
+                        <i class="icon fa-solid fa-magnifying-glass-chart"></i>
+                        <h3>DeepResearch</h3>
+                    </div>
+                    <div class="tile">
+                        <i class="icon fa-solid fa-layer-group"></i>
+                        <h3>Gemini Canvas</h3>
+                    </div>
+                    <div class="tile">
+                        <i class="icon fa-solid fa-book-open-reader"></i>
+                        <h3>NotebookLM</h3>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 40px; font-size: 24px;">Esqueça o chat básico. Vamos usar ferramentas de alto nível.</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: DeepResearch -->
+        <div class="slide-container" id="slide9">
+            <h2 class="slide-title">1. DeepResearch: Pesquisa Real</h2>
+            <div class="content-area">
+                <div class="mock-window">
+                    <div class="mock-header">
+                        <div class="mock-dot dot-r"></div><div class="mock-dot dot-y"></div><div class="mock-dot dot-g"></div>
+                        <span class="mock-title">Pesquisa_Arquitetura_Backend</span>
+                    </div>
+                    <div class="mock-body" style="background-color: #121214;">
+                        <div class="dr-ui">
+                            <div class="dr-search">
+                                <i class="fa-solid fa-magnifying-glass text-green"></i>
+                                Análise técnica: Quando migrar de Monólito para Microserviços?
+                            </div>
+                            <div class="dr-content-area">
+                                <div class="dr-summary">
+                                    <h4><i class="fa-solid fa-bolt"></i> Síntese Gerada a partir de 45 fontes</h4>
+                                    <p>A análise indica que a migração prematura para microserviços é um "anti-pattern" comum. Recomenda-se a adoção da abordagem <strong>"MonolithFirst"</strong>. A migração justifica-se quando a base de código monolítica atinge um nível de acoplamento que reduz a velocidade de deploy.</p>
+                                </div>
+                                <div class="dr-cards-title">Fontes de Referência Validadas</div>
+                                <div class="dr-cards">
+                                    <div class="dr-source">
+                                        <div class="dr-source-domain"><i class="fa-solid fa-globe"></i> martinfowler.com</div>
+                                        <div class="dr-source-title">MonolithFirst: Por que não começar com microserviços.</div>
+                                    </div>
+                                    <div class="dr-source">
+                                        <div class="dr-source-domain"><i class="fa-brands fa-aws"></i> aws.amazon.com</div>
+                                        <div class="dr-source-title">Whitepaper: Scaling Architecture Patterns.</div>
+                                    </div>
+                                    <div class="dr-source">
+                                        <div class="dr-source-domain"><i class="fa-brands fa-stack-overflow"></i> stackoverflow.blog</div>
+                                        <div class="dr-source-title">The hidden costs of microservices.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Canvas -->
+        <div class="slide-container" id="slide10">
+            <h2 class="slide-title">2. Gemini Canvas: Pareamento</h2>
+            <div class="content-area">
+                <div class="mock-window">
+                    <div class="mock-header">
+                        <div class="mock-dot dot-r"></div><div class="mock-dot dot-y"></div><div class="mock-dot dot-g"></div>
+                        <span class="mock-title">Canvas - Refatoração de Performance</span>
+                    </div>
+                    <div class="mock-body split-ui">
+                        <div class="split-left">
+                            <div style="background: var(--bg-surface-alt); padding: 15px; border-radius: 8px; font-size: 14px; color: #fff;">
+                                <i class="fa-solid fa-user text-body" style="margin-right: 5px;"></i> "Este loop para filtrar está muito lento com 10.000 itens. Parece O(n²). Como otimizar?"
+                            </div>
+                            <div style="background: var(--accent-green-dim); padding: 15px; border-radius: 8px; font-size: 14px; border: 1px solid rgba(16,185,129,0.3); color: #fff; line-height: 1.5;">
+                                <i class="fa-solid fa-sparkles text-green" style="margin-right: 5px;"></i> "Exato. O <code>.includes()</code> varre o array repetidas vezes. Podemos usar um <code>Set</code> para transformar a busca numa complexidade de O(1). Alterei ao lado."
+                            </div>
+                        </div>
+                        <div class="split-right">
+                            <div><span class="cm">// Original (Ineficiente)</span></div>
+                            <div class="code-deleted-bg">
+                                <span class="kw">const</span> <span class="vr">filt</span> <span class="op">=</span> <span class="vr">prods</span>.<span class="fn">filter</span>(<span class="vr">p</span> <span class="kw">=></span> <span class="vr">ids</span>.<span class="fn">includes</span>(<span class="vr">p</span>.<span class="vr">id</span>));
+                            </div>
+                            <br>
+                            <div><span class="cm">// Refatoração sugerida O(n)</span></div>
+                            <div class="code-highlight-bg">
+                                <span class="cm">// 1. Hash Set para busca rápida</span><br>
+                                <span class="kw">const</span> <span class="vr">idSet</span> <span class="op">=</span> <span class="kw">new</span> <span class="fn">Set</span>(<span class="vr">ids</span>);<br><br>
+                                <span class="cm">// 2. Filtra verificando no Set O(1)</span><br>
+                                <span class="kw">const</span> <span class="vr">filt</span> <span class="op">=</span> <span class="vr">prods</span>.<span class="fn">filter</span>(<span class="vr">p</span> <span class="kw">=></span> <span class="vr">idSet</span>.<span class="fn">has</span>(<span class="vr">p</span>.<span class="vr">id</span>));
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: NotebookLM -->
+        <div class="slide-container" id="slide11">
+            <h2 class="slide-title">3. NotebookLM: Gêmeo de Estudos</h2>
+            <div class="content-area">
+                <div class="mock-window">
+                    <div class="mock-header">
+                        <div class="mock-dot dot-r"></div><div class="mock-dot dot-y"></div><div class="mock-dot dot-g"></div>
+                        <span class="mock-title">Notebook - Preparação de Prova</span>
+                    </div>
+                    <div class="mock-body nl-ui">
+                        <div class="nl-sidebar">
+                            <h4 style="color: var(--text-body); font-size: 13px; text-transform: uppercase;">Fontes</h4>
+                            <div class="nl-doc"><i class="fa-solid fa-file-pdf text-red"></i> Slides_Aula_V2.pdf</div>
+                            <div class="nl-doc"><i class="fa-solid fa-file-pdf text-red"></i> Clean_Code.pdf</div>
+                            <div class="nl-doc"><i class="fa-solid fa-file-code text-orange"></i> Anotacoes.txt</div>
+                        </div>
+                        <div class="nl-main">
+                            <div class="audio-card">
+                                <div class="audio-header">
+                                    <span class="audio-title"><i class="fa-solid fa-headphones-simple text-green" style="margin-right: 10px;"></i> Audio Overview</span>
+                                    <span class="audio-badge" style="background: rgba(16, 185, 129, 0.2);">Gerado por IA</span>
+                                </div>
+                                <p style="font-size: 14px; color: var(--text-body); margin: 0;">2 Hosts discutindo os seus PDFs interagindo como um podcast.</p>
+                                <div class="audio-player-controls">
+                                    <i class="fa-solid fa-circle-pause" style="font-size: 36px; color: var(--accent-green); cursor: pointer;"></i>
+                                    <div class="audio-wave"></div>
+                                    <span style="font-family: 'JetBrains Mono'; font-size: 14px; color: #fff;">04:12 / 12:45</span>
+                                </div>
+                            </div>
+                            <div class="nl-notes">
+                                <h3><i class="fa-solid fa-list-check text-orange"></i> Guia Sintetizado</h3>
+                                <ul>
+                                    <li><strong>SOLID:</strong> Princípio da Responsabilidade Única (SRP) é vital.</li>
+                                    <li><strong>Clean Code:</strong> Variáveis revelam a intenção. Evite abreviações.</li>
+                                    <li><strong>Dívida Técnica:</strong> Acumular 'gambiarras' atrasa o desenvolvimento.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Anatomia do Prompt -->
+        <div class="slide-container" id="slide12">
+            <h2 class="slide-title">Anatomia do Prompt Perfeito</h2>
+            <div class="content-area">
+                <div class="anatomy-box">
+                    <div class="anatomy-row persona">
+                        <div class="anatomy-badge">1. Persona</div>
+                        <p style="margin:0; color:#fff;">Aja como um Professor muito paciente.</p>
+                    </div>
+                    <div class="anatomy-row tarefa">
+                        <div class="anatomy-badge">2. Tarefa</div>
+                        <p style="margin:0; color:#fff;">Quero entender como funciona um Banco de Dados.</p>
+                    </div>
+                    <div class="anatomy-row restricao">
+                        <div class="anatomy-badge">3. Restrição</div>
+                        <p style="margin:0; color:#fff;">Não use termos difíceis. Use analogias do dia a dia (ex: arquivo de escritório) e não gere código.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Carreira -->
+        <div class="slide-container" id="slide13">
+            <h2 class="slide-title">IA na sua Carreira</h2>
+            <div class="content-area">
+                <div class="two-column">
+                    <div>
+                        <ul class="custom-list">
+                            <li><strong>Simulador de Entrevista:</strong> Peça para a IA agir como recrutador e fazer perguntas técnicas.</li>
+                            <li><strong>Análise de Vagas:</strong> Cruze o seu currículo com a vaga no DeepResearch para encontrar falhas.</li>
+                            <li><strong>O Diferencial:</strong> Mostrar que você entende o "porquê", e não apenas o "como".</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="framed-image">
+                            <!-- Imagem Profissional de Entrevista/Preparação (Unsplash) -->
+                            <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&q=80" alt="Profissional de tecnologia trabalhando focada num ambiente moderno de escritório">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: O Desafio Final -->
+        <div class="slide-container" id="slide14">
+            <h2 class="slide-title text-orange">Desafio: O Ciclo de Aprendizado</h2>
+            <div class="content-area">
+                <p style="text-align: center; margin-bottom: 30px; font-size: 24px;">Vamos unir as ferramentas para criar, entender e testar um conhecimento do zero.</p>
+                <div class="challenge-box">
+                    <div class="step-card">
+                        <div class="step-number" style="background: var(--accent-blue);">1</div>
+                        <h4>1. Pesquisa<br><span style="font-size: 14px; color: var(--text-body); font-weight: normal;">(DeepResearch)</span></h4>
+                        <p>Pesquise uma lógica simples: <em>"Como funciona a lógica de descontos num e-commerce?"</em>. Copie o melhor resumo.</p>
+                        <span class="badge" style="color: var(--accent-blue); background: rgba(59, 130, 246, 0.15);">Fundamentação</span>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number" style="background: var(--accent-green);">2</div>
+                        <h4>2. Construção<br><span style="font-size: 14px; color: var(--text-body); font-weight: normal;">(Canvas)</span></h4>
+                        <p>Peça à IA: <em>"Gere o código dessa lógica. Adicione comentários extremamente detalhados em cada linha explicando o porquê."</em></p>
+                        <span class="badge" style="color: var(--accent-green); background: var(--accent-green-dim);">Criação</span>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number" style="background: var(--accent-orange);">3</div>
+                        <h4>3. Exportação<br><span style="font-size: 14px; color: var(--text-body); font-weight: normal;">(Documento)</span></h4>
+                        <p>Copie o código e as explicações geradas pelo Canvas e guarde num ficheiro PDF ou Bloco de Notas no seu computador.</p>
+                        <span class="badge" style="color: var(--accent-orange); background: rgba(249, 115, 22, 0.15);">Base Própria</span>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number" style="background: var(--accent-red);">4</div>
+                        <h4>4. Validação<br><span style="font-size: 14px; color: var(--text-body); font-weight: normal;">(NotebookLM)</span></h4>
+                        <p>Suba esse ficheiro no NotebookLM e peça: <em>"Gere um Quiz de 3 perguntas sobre a lógica deste código para testar se eu entendi"</em>.</p>
+                        <span class="badge" style="color: var(--accent-red); background: var(--accent-red-dim);">Aprendizado Ativo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: A Plataforma -->
+        <div class="slide-container" id="slide15">
+            <h2 class="slide-title">Plataforma: IA para Devs</h2>
+            <div class="content-area">
+                <div class="tiled-content">
+                    <div class="tile">
+                        <i class="icon fa-solid fa-laptop-file"></i>
+                        <h3>8 Módulos</h3>
+                        <p>De lógica e debugging até preparação para carreira.</p>
+                    </div>
+                    <div class="tile">
+                        <i class="icon fa-solid fa-code"></i>
+                        <h3>Desafios</h3>
+                        <p>Exercícios para testar a sua capacidade de investigar erros.</p>
+                    </div>
+                    <div class="tile">
+                        <i class="icon fa-solid fa-unlock"></i>
+                        <h3>100% Aberto</h3>
+                        <p>Sem login, sem barreiras. Feito de alunos para alunos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Q&A e Multi QR Codes -->
+        <div class="slide-container" id="slide16">
+            <div class="content-area">
+                <h1 style="color: var(--accent-green); text-align: center; margin-bottom: 10px;">Acesse e Participe</h1>
+                <p style="text-align: center; font-size: 26px; color: #fff; margin-bottom: 30px;">Escaneie o código ou digite o link no seu navegador.</p>
+
+                <div style="display: flex; justify-content: center; gap: 40px; width: 100%;">
+                    <!-- QR Code 1: Plataforma -->
+                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; background: var(--bg-surface); padding: 30px; border-radius: 16px; border: 2px solid var(--accent-green); width: 45%;">
+                        <p style="font-weight: 700; color: #fff; margin-bottom: 15px; font-size: 26px;"><i class="fa-solid fa-globe text-green"></i> 1. Acessar Plataforma</p>
+                        <div class="qr-wrapper" style="width: 200px; height: 200px; padding: 15px; margin-bottom: 20px;">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://ia-para-devs-peach.vercel.app/&color=09090b&bgcolor=ffffff" alt="QR Code Plataforma">
+                        </div>
+                        <p style="font-family: 'JetBrains Mono'; color: var(--accent-green); font-size: 22px; font-weight: 700; background: var(--bg-base); padding: 12px 20px; border-radius: 8px; width: 100%; word-break: break-all; margin: 0;">ia-para-devs-peach.vercel.app</p>
+                    </div>
+
+                    <!-- QR Code 2: Formulário e Desafio -->
+                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; background: var(--bg-surface); padding: 30px; border-radius: 16px; border: 2px solid var(--accent-orange); width: 45%;">
+                        <p style="font-weight: 700; color: #fff; margin-bottom: 15px; font-size: 26px;"><i class="fa-solid fa-clipboard-check text-orange"></i> 2. Enviar Desafio</p>
+                        <div class="qr-wrapper" style="width: 200px; height: 200px; padding: 15px; margin-bottom: 20px;">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://forms.gle/Y6qe7GciLJE1Q2rb7&color=09090b&bgcolor=ffffff" alt="QR Code Google Forms">
+                        </div>
+                        <p style="font-family: 'JetBrains Mono'; color: var(--accent-orange); font-size: 22px; font-weight: 700; background: var(--bg-base); padding: 12px 20px; border-radius: 8px; width: 100%; word-break: break-all; margin: 0;">forms.gle/Y6qe7GciLJE1Q2rb7</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Controles Flutuantes -->
+    <div class="controls">
+        <span class="slide-counter" id="counter">1 / 16</span>
+        <button class="btn" id="prevBtn" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="btn" id="nextBtn" onclick="nextSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <script>
+        // Função de redimensionamento robusta e à prova de falhas (Tela Inteira / Tela Cheia)
+        function resizePresentation() {
+            const container = document.getElementById('presentation-container');
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            // Impede cálculo 0 que escondia a tela
+            if(windowWidth === 0 || windowHeight === 0) return;
+
+            const scaleX = windowWidth / 1280;
+            const scaleY = windowHeight / 720;
+            
+            // Removi o * 0.96 para ocupar a tela 100% (bordas vão encostar nos limites)
+            const scale = Math.max(0.1, Math.min(scaleX, scaleY)); 
+
+            container.style.transform = `scale(${scale})`;
+        }
+
+        window.addEventListener('resize', resizePresentation);
+        
+        // Garante que o redimensionamento acontece mesmo que o Iframe atrase
+        setTimeout(resizePresentation, 50);
+        setTimeout(resizePresentation, 500);
+
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide-container');
+        const counter = document.getElementById('counter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function updateSlides() {
+            // Remove a classe do slide anterior
+            document.querySelector('.slide-container.active')?.classList.remove('active');
+            
+            // Adiciona a classe no slide atual
+            slides[currentSlideIndex].classList.add('active');
+            
+            counter.innerText = `${currentSlideIndex + 1} / ${slides.length}`;
+            
+            prevBtn.style.opacity = currentSlideIndex === 0 ? '0.3' : '1';
+            prevBtn.style.cursor = currentSlideIndex === 0 ? 'default' : 'pointer';
+            
+            nextBtn.style.opacity = currentSlideIndex === slides.length - 1 ? '0.3' : '1';
+            nextBtn.style.cursor = currentSlideIndex === slides.length - 1 ? 'default' : 'pointer';
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < slides.length - 1) {
+                currentSlideIndex++;
+                updateSlides();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                updateSlides();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        let touchstartX = 0;
+        let touchendX = 0;
+        
+        document.addEventListener('touchstart', e => { 
+            touchstartX = e.changedTouches[0].screenX; 
+        });
+        
+        document.addEventListener('touchend', e => { 
+            touchendX = e.changedTouches[0].screenX; 
+            if (touchendX < touchstartX - 50) nextSlide(); 
+            if (touchendX > touchstartX + 50) prevSlide(); 
+        });
+
+        // Não precisa forçar a chamada de updateSlides aqui no início
+        // porque a classe 'active' já é adicionada no HTML do primeiro slide.
+    </script>
+</body>
+</html>
