@@ -168,50 +168,18 @@ export function Lesson() {
               {activeTab === "exercises" && (
                 <AnimateOnScroll>
                   {lessonExercises && lessonExercises.exercises.length > 0 ? (
-                    <div className="space-y-5">
-                      {lessonExercises.exercises.map((exercise, idx) => {
-                        const hintRevealed = revealedHints.has(exercise.id);
-                        return (
-                          <AnimateOnScroll key={exercise.id} delay={idx * 100}>
-                            <div className="rounded-xl border border-border bg-card p-6">
-                              <div className="mb-3 flex items-start gap-3">
-                                <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
-                                <h4 className="font-semibold">{exercise.title}</h4>
-                              </div>
-
-                              <div className="mb-4 rounded-lg bg-muted/50 p-4">
-                                <p className="text-sm text-foreground/90 whitespace-pre-wrap leading-relaxed">
-                                  {exercise.problem}
-                                </p>
-                              </div>
-
-                              <button
-                                onClick={() => toggleHint(exercise.id)}
-                                className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm transition-all duration-200 ${
-                                  hintRevealed
-                                    ? "bg-primary/10 text-primary"
-                                    : "border border-secondary/50 bg-secondary/5 text-secondary hover:bg-secondary/10"
-                                }`}
-                              >
-                                <Lightbulb className="size-4" />
-                                {hintRevealed ? "Ocultar Pista" : "Pista da IA"}
-                              </button>
-
-                              {hintRevealed && (
-                                <div className="mt-4 rounded-lg border border-primary/30 bg-primary/5 p-4">
-                                  <div className="mb-2 flex items-center gap-2">
-                                    <Lightbulb className="size-4 text-primary" />
-                                    <span className="text-xs text-primary">Orientação Socrática</span>
-                                  </div>
-                                  <p className="text-sm text-foreground/90 italic leading-relaxed">
-                                    {exercise.hint}
-                                  </p>
-                                </div>
-                              )}
-                            </div>
-                          </AnimateOnScroll>
-                        );
-                      })}
+                    <div className="text-center py-12 rounded-xl border border-dashed border-border bg-card/20">
+                      <Dumbbell className="mx-auto size-12 text-muted-foreground mb-4 opacity-50" />
+                      <h3 className="text-lg font-bold mb-2">Exercícios Práticos</h3>
+                      <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                        Este módulo possui {lessonExercises.exercises.length} exercícios práticos com orientação socrática passo a passo.
+                      </p>
+                      <Link
+                        to={`/exercicios?modulo=${currentLesson.id}`}
+                        className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                      >
+                        Resolver Exercícios <ChevronRight className="size-4" />
+                      </Link>
                     </div>
                   ) : (
                     <div className="text-center py-12 text-muted-foreground">
@@ -230,17 +198,39 @@ export function Lesson() {
                       <div>
                         <h4 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wider">Materiais de Apoio</h4>
                         <div className="grid gap-3 sm:grid-cols-2">
-                          {currentLesson.materials.map((material, idx) => (
-                            <button key={idx} className="flex w-full items-center gap-3 rounded-xl border border-border bg-card p-4 transition-all duration-200 hover:border-primary/50 hover:shadow-[0_0_12px_rgba(16,185,129,0.1)]">
-                              <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                                <Download className="size-5 text-primary" />
-                              </div>
-                              <div className="flex-1 text-left min-w-0">
-                                <div className="text-sm font-medium truncate">{material.title}</div>
-                                <div className="text-xs text-muted-foreground">{material.type} {material.size ? `• ${material.size}` : ''}</div>
-                              </div>
-                            </button>
-                          ))}
+                          {currentLesson.materials.map((material, idx) => {
+                              if (material.url) {
+                                return (
+                                  <a 
+                                    key={idx} 
+                                    href={material.url}
+                                    download
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex w-full items-center gap-3 rounded-xl border border-border bg-card p-4 transition-all duration-200 hover:border-primary/50 hover:shadow-[0_0_12px_rgba(16,185,129,0.1)]"
+                                  >
+                                    <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                                      <Download className="size-5 text-primary" />
+                                    </div>
+                                    <div className="flex-1 text-left min-w-0">
+                                      <div className="text-sm font-medium truncate">{material.title}</div>
+                                      <div className="text-xs text-muted-foreground">{material.type} {material.size ? `• ${material.size}` : ''}</div>
+                                    </div>
+                                  </a>
+                                );
+                              }
+                              return (
+                                <button key={idx} className="flex w-full items-center gap-3 rounded-xl border border-border bg-card p-4 transition-all duration-200 hover:border-primary/50 hover:shadow-[0_0_12px_rgba(16,185,129,0.1)] opacity-70 cursor-not-allowed" title="Arquivo indisponível para download">
+                                  <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                                    <Download className="size-5 text-primary" />
+                                  </div>
+                                  <div className="flex-1 text-left min-w-0">
+                                    <div className="text-sm font-medium truncate">{material.title}</div>
+                                    <div className="text-xs text-muted-foreground">{material.type} {material.size ? `• ${material.size}` : '(Indisponível)'}</div>
+                                  </div>
+                                </button>
+                              );
+                          })}
                         </div>
                       </div>
                     )}
@@ -273,27 +263,6 @@ export function Lesson() {
                                 )}
                               </button>
                             </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Suggested Sites */}
-                    {currentLesson.suggestedSites && currentLesson.suggestedSites.length > 0 && (
-                      <div>
-                        <h4 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wider">Sites Sugeridos</h4>
-                        <div className="flex flex-wrap gap-3">
-                          {currentLesson.suggestedSites.map((site, idx) => (
-                            <a
-                              key={idx}
-                              href={site.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground transition-colors hover:border-secondary/50 hover:text-secondary hover:bg-secondary/5"
-                            >
-                              {site.title}
-                              <ExternalLink className="size-3" />
-                            </a>
                           ))}
                         </div>
                       </div>

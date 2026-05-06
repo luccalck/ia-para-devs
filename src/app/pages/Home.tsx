@@ -58,11 +58,11 @@ export function Home() {
         <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             <div className="text-center animate-fade-in-up">
-              <div className="text-3xl font-bold text-primary mb-1">10</div>
+              <div className="text-3xl font-bold text-primary mb-1">8</div>
               <div className="text-sm text-muted-foreground">Módulos Completos</div>
             </div>
             <div className="text-center animate-fade-in-up animate-delay-100">
-              <div className="text-3xl font-bold text-primary mb-1">20+</div>
+              <div className="text-3xl font-bold text-primary mb-1">16</div>
               <div className="text-sm text-muted-foreground">Exercícios Práticos</div>
             </div>
             <div className="text-center animate-fade-in-up animate-delay-200">
@@ -96,7 +96,7 @@ export function Home() {
             </div>
             <h3 className="mb-3 text-xl font-semibold">Aulas Gravadas</h3>
             <p className="text-muted-foreground leading-relaxed">
-              Acesso a 10 módulos completos de vídeo-aulas sobre fundamentos de programação,
+              Acesso a 8 módulos completos de vídeo-aulas sobre fundamentos de programação,
               algoritmos e estruturas de dados.
             </p>
           </Link>
@@ -110,7 +110,7 @@ export function Home() {
             </div>
             <h3 className="mb-3 text-xl font-semibold">Exercícios Práticos</h3>
             <p className="text-muted-foreground leading-relaxed">
-              20+ exercícios com pistas socráticas que desenvolvem seu raciocínio lógico
+              16 exercícios com pistas socráticas que desenvolvem seu raciocínio lógico
               sem depender de soluções prontas.
             </p>
           </Link>
@@ -215,7 +215,7 @@ export function Home() {
           </div>
           <h3 className="text-2xl font-bold mb-2">Feito por Estudantes para Estudantes</h3>
           <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
-            Uma equipe de 10 estudantes do UniSENAI dedicados a tornar o aprendizado de programação mais acessível.
+            Uma equipe de 10 estudantes do SENAI dedicados a tornar o aprendizado de programação mais acessível.
           </p>
           <Link
             to="/equipe"

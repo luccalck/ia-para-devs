@@ -1,3 +1,5 @@
+import { exerciseData } from "./exercises";
+
 export interface Resource {
   title: string;
   type: string;
@@ -10,11 +12,6 @@ export interface Prompt {
   content: string;
 }
 
-export interface LinkItem {
-  title: string;
-  url: string;
-}
-
 export interface LessonData {
   id: number;
   title: string;
@@ -25,7 +22,6 @@ export interface LessonData {
   approach: string;
   materials: Resource[];
   prompts: Prompt[];
-  suggestedSites: LinkItem[];
 }
 
 export const lessons: LessonData[] = [
@@ -34,18 +30,15 @@ export const lessons: LessonData[] = [
     title: 'Módulo 1: O Fim do "Vibecoding" e o Mindset de Engenheiro',
     duration: "1h30",
     difficulty: "Iniciante",
-    thumbnail: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&q=80",
-    description: "Diferença entre copiar e colar e programação assistida.",
-    approach: 'Diferença entre "copiar e colar" e "programação assistida". Como não deixar o cérebro atrofiar enquanto a IA escreve.',
+    thumbnail: "https://images.unsplash.com/photo-1770171323762-7b9a517a7094?w=800&q=80",
+    description: "Compreensão da diferença entre copiar código e utilizar programação assistida de forma inteligente.",
+    approach: "Diferença conceitual entre programação passiva e engenharia assistida. Práticas para manter o desenvolvimento cognitivo estruturado ao utilizar inteligência artificial.",
     materials: [
-      { title: 'PDF "Manual do Desenvolvedor Aumentado"', type: 'PDF', size: '2.1 MB' }
+      { title: "Apresentação: O Fim do Vibecoding e o Mindset de Engenheiro", type: "PDF", url: "/slides/aula-1-mindset-engenheiro.pdf" },
+      { title: "Recursos e Exercícios: Aula 1", type: "DOCX" }
     ],
     prompts: [
-      { title: "System Prompt", content: 'Setup de "System Prompt" para transformar o ChatGPT/Gemini em um tutor socrático.' }
-    ],
-    suggestedSites: [
-      { title: "Documentação oficial da OpenAI", url: "#" },
-      { title: "Documentação oficial da Google", url: "#" }
+      { title: "O Mentor Socrático", content: '"Atue como um instrutor técnico sênior paciente. Sou iniciante em desenvolvimento de software. Não forneça soluções prontas. Ao solicitar ajuda, responda com perguntas guiadas que estimulem o raciocínio lógico. Se houver dificuldade extrema, utilize analogias do cotidiano para explicar conceitos técnicos."' }
     ]
   },
   {
@@ -53,17 +46,15 @@ export const lessons: LessonData[] = [
     title: "Módulo 2: Engenharia de Prompt para Lógica de Programação",
     duration: "1h45",
     difficulty: "Iniciante",
-    thumbnail: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&q=80",
-    description: "Decomponha problemas complexos em passos menores.",
-    approach: "Como decompor problemas complexos em passos menores (Chain of Thought) antes de pedir qualquer linha de código.",
+    thumbnail: "https://images.unsplash.com/photo-1759661990336-51bd4b951fea?w=800&q=80",
+    description: "Decomposição de problemas complexos em etapas estruturadas menores.",
+    approach: "Estratégias de decomposição de problemas utilizando o método Chain-of-Thought para estruturação lógica antes da codificação.",
     materials: [
-      { title: "Slides sobre decomposição de requisitos", type: "Slide", size: "3.5 MB" }
+      { title: "Apresentação: Engenharia de Prompt para Lógica de Programação", type: "PDF", url: "/slides/aula-2-logica-programacao.pdf" },
+      { title: "Recursos e Exercícios: Aula 2", type: "DOCX" }
     ],
     prompts: [
-      { title: "Few-shot prompting", content: 'Técnicas de "Few-shot prompting" para ensinar padrões de código específicos à IA.' }
-    ],
-    suggestedSites: [
-      { title: "PromptingGuide.ai", url: "#" }
+      { title: "Passo a Passo Estruturado", content: '"Tenho o seguinte problema de lógica estrutural: [DESCREVA O PROBLEMA]. Antes da geração de código, crie uma sequência de passos lógicos sobre como o sistema deve processar a informação. Utilize linguagem clara, focando na abstração do problema."' }
     ]
   },
   {
@@ -71,18 +62,15 @@ export const lessons: LessonData[] = [
     title: "Módulo 3: Setup do Ambiente: IDEs e Extensões Inteligentes",
     duration: "2h00",
     difficulty: "Iniciante",
-    thumbnail: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=400&q=80",
-    description: "Configuração profissional do VS Code ou Cursor.",
-    approach: 'Configuração profissional do VS Code com extensões (Codeium, Continue) ou uso do Cursor. Como gerenciar o "contexto" de arquivos.',
+    thumbnail: "https://images.unsplash.com/photo-1691169467000-d1d929ec380d?w=800&q=80",
+    description: "Configuração profissional de ambientes de desenvolvimento integrados (IDEs).",
+    approach: "Preparação de um ambiente de desenvolvimento robusto, instalação de ferramentas essenciais e gestão de contexto em projetos de software.",
     materials: [
-      { title: "Guia de Instalação e atalhos de produtividade", type: "PDF", size: "1.2 MB" }
+      { title: "Apresentação: Setup do Ambiente: IDEs e Extensões Inteligentes", type: "PDF", url: "/slides/aula-3-setup-ambiente.pdf" },
+      { title: "Recursos e Exercícios: Aula 3", type: "DOCX" }
     ],
     prompts: [
-      { title: "Comandos de Terminal", content: "Comandos de terminal explicados pela IA." }
-    ],
-    suggestedSites: [
-      { title: "Marketplace do VS Code", url: "#" },
-      { title: "Cursor.com", url: "#" }
+      { title: "Assistente de Configuração", content: '"Preciso configurar a seguinte ferramenta no meu ambiente: [NOME DA FERRAMENTA]. Forneça um guia passo a passo estruturado para a instalação. Caso ocorram erros no terminal, enviarei a saída (log) para que você me auxilie na resolução."' }
     ]
   },
   {
@@ -90,17 +78,15 @@ export const lessons: LessonData[] = [
     title: "Módulo 4: Debugging Consciente: Aprendendo com o Erro",
     duration: "1h30",
     difficulty: "Iniciante",
-    thumbnail: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400&q=80",
-    description: "Usando IA para explicar Stack Traces.",
-    approach: 'Usar a IA para explicar o "Stack Trace" (erro do console). Por que o erro aconteceu e como evitar que ele volte.',
+    thumbnail: "https://images.unsplash.com/photo-1765408217560-fff31d67c54c?w=800&q=80",
+    description: "Utilização de ferramentas e metodologias para identificação e resolução de erros no código.",
+    approach: "Interpretação técnica de Stack Traces e mensagens de erro do compilador. Práticas para prevenção de reincidência de falhas estruturais.",
     materials: [
-      { title: "Lista de erros comuns de juniores explicados", type: "PDF", size: "4.8 MB" }
+      { title: "Apresentação: Debugging Consciente: Aprendendo com o Erro", type: "PDF", url: "/slides/aula-4-debugging-consciente.pdf" },
+      { title: "Recursos e Exercícios: Aula 4", type: "DOCX" }
     ],
     prompts: [
-      { title: "Explicação Socrática", content: '"Explique este erro passo a passo, mas não me dê a solução corrigida ainda."' }
-    ],
-    suggestedSites: [
-      { title: "Stack Overflow", url: "#" }
+      { title: "Intérprete de Stack Trace", content: '"O sistema retornou a seguinte exceção durante a execução: [COLE O ERRO]. Analise o stack trace fornecido e explique a causa raiz do problema em linguagem acessível, indicando onde o fluxo lógico pode ter falhado."' }
     ]
   },
   {
@@ -108,112 +94,63 @@ export const lessons: LessonData[] = [
     title: "Módulo 5: Engenharia Reversa e Leitura de Código",
     duration: "1h50",
     difficulty: "Iniciante",
-    thumbnail: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=400&q=80",
-    description: "Análise e dissecação de códigos legados ou famosos.",
-    approach: 'Pegar um código legado ou de uma biblioteca famosa e usar a IA para "dessecar" o que cada função faz na memória.',
+    thumbnail: "https://images.unsplash.com/photo-1670751781907-d59be4c3e208?w=800&q=80",
+    description: "Metodologias analíticas para compreensão de bases de código legadas ou desconhecidas.",
+    approach: "Técnicas de engenharia reversa conceitual auxiliada por IA para analisar fluxo de dados, estado e chamadas de função em repositórios complexos.",
     materials: [
-      { title: "Código-fonte de um projeto Open Source pequeno para análise", type: "ZIP", size: "10 MB" }
+      { title: "Apresentação: Engenharia Reversa e Leitura de Código", type: "PDF", url: "/slides/aula-5-engenharia-reversa.pdf" },
+      { title: "Recursos e Exercícios: Aula 5", type: "DOCX" }
     ],
     prompts: [
-      { title: "Comentários para Iniciantes", content: '"Comente este código para um estudante de 1º semestre"' },
-      { title: "Fluxograma Textual", content: '"Gere um fluxograma textual desta lógica"' }
-    ],
-    suggestedSites: [
-      { title: "GitHub", url: "#" }
+      { title: "Analisador de Lógica", content: '"Analise o seguinte trecho de código estrutural: [COLE O CÓDIGO]. Descreva o fluxo de processamento de forma sequencial. Utilize analogias claras para elucidar conceitos complexos, como alocação de memória ou concorrência, caso existam."' }
     ]
   },
   {
     id: 6,
     title: "Módulo 6: Arquitetura e Modelagem de Dados",
     duration: "2h00",
-    difficulty: "Intermediário",
-    thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&q=80",
-    description: "Planejamento de banco de dados e rotas API.",
-    approach: "Planejar o banco de dados e as rotas da API antes de codar. Usar IA para sugerir estruturas de tabelas e relacionamentos.",
+    difficulty: "Iniciante",
+    thumbnail: "https://images.unsplash.com/photo-1680992044138-ce4864c2b962?w=800&q=80",
+    description: "Planejamento estrutural de persistência de dados e rotas lógicas.",
+    approach: "Modelagem inicial de entidades. Utilização de IA para validação de relacionamentos, normalização básica e design de API.",
     materials: [
-      { title: "Template de Diagrama Entidade-Relacionamento (DER)", type: "Template", size: "1.5 MB" }
+      { title: "Apresentação: Arquitetura e Modelagem: O Desenho antes do Código", type: "PDF", url: "/slides/aula-6-arquitetura-modelagem.pdf" },
+      { title: "Recursos e Exercícios: Aula 6", type: "DOCX" }
     ],
     prompts: [
-      { title: "Arquiteto de Sistemas", content: '"Atue como um arquiteto de sistemas e critique esta estrutura de banco de dados para um e-commerce."' }
-    ],
-    suggestedSites: [
-      { title: "dbdiagram.io", url: "#" },
-      { title: "Mermaid.js", url: "#" }
+      { title: "Arquiteto de Domínio", content: '"Desenvolverei um sistema com a seguinte finalidade: [IDEIA DO SISTEMA]. Auxilie na modelagem inicial dos dados identificando as entidades primárias necessárias e seus atributos cruciais, garantindo uma organização relacional eficiente."' }
     ]
   },
   {
     id: 7,
     title: "Módulo 7: Refatoração, Clean Code e Performance",
     duration: "1h45",
-    difficulty: "Intermediário",
-    thumbnail: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80",
-    description: "Melhorar códigos com SOLID, DRY e análise Big O.",
-    approach: "Melhorar códigos antigos. Princípios SOLID e DRY aplicados com auxílio de IA. Análise de complexidade (Big O).",
+    difficulty: "Iniciante",
+    thumbnail: "https://images.unsplash.com/photo-1547190027-9156686aa2f0?w=800&q=80",
+    description: "Aprimoramento de qualidade de software focado em legibilidade e manutenibilidade.",
+    approach: "Refatoração de lógicas não otimizadas através de fundamentos limpos, focando em redução de complexidade ciclomática e nomenclatura explícita.",
     materials: [
-      { title: 'PDF "Checklist de Clean Code para Devs"', type: "PDF", size: "2.3 MB" }
+      { title: "Apresentação: Código Limpo e Rápido", type: "PDF", url: "/slides/aula-7-codigo-limpo.pdf" },
+      { title: "Recursos e Exercícios: Aula 7", type: "DOCX" }
     ],
     prompts: [
-      { title: "Otimização de Performance", content: '"Como posso tornar esta função mais performática sem perder a legibilidade?"' }
-    ],
-    suggestedSites: [
-      { title: "Refactoring.guru", url: "#" }
+      { title: "Revisor de Qualidade", content: '"Efetue a revisão do seguinte trecho de código: [COLE O CÓDIGO]. Forneça 3 sugestões técnicas focadas estritamente em legibilidade, manutenibilidade e nomenclatura, alinhadas aos princípios de Clean Code, sem alterar a regra de negócio central."' }
     ]
   },
   {
     id: 8,
-    title: "Módulo 8: Testes Automatizados e Qualidade de Software",
-    duration: "2h15",
-    difficulty: "Intermediário",
-    thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80",
-    description: "Geração de testes unitários e casos de borda com IA.",
-    approach: "Como usar a IA para prever casos de borda (edge cases) e gerar testes unitários significativos.",
-    materials: [
-      { title: "Roteiro de testes para uma função de validação", type: "Documento", size: "800 KB" }
-    ],
-    prompts: [
-      { title: "Cenários de Teste", content: '"Quais cenários de teste eu esqueci para este formulário de cadastro?"' }
-    ],
-    suggestedSites: [
-      { title: "Jest Docs", url: "#" },
-      { title: "Pytest Docs", url: "#" }
-    ]
-  },
-  {
-    id: 9,
-    title: "Módulo 9: Automatizando o Trabalho Maçante (Boring Stuff)",
-    duration: "1h30",
-    difficulty: "Avançado",
-    thumbnail: "https://images.unsplash.com/photo-1484417894907-623942c8ee29?w=400&q=80",
-    description: "Automação de documentação, READMEs e mock data.",
-    approach: "Documentação (JSDoc, Swagger), arquivos README, mensagens de Git Commit e criação de dados fictícios (Mock Data).",
-    materials: [
-      { title: "Exemplos de READMEs que encantam recrutadores", type: "Markdown", size: "450 KB" }
-    ],
-    prompts: [
-      { title: "Geração de README", content: '"Gere um arquivo README profissional baseado neste repositório"' },
-      { title: "Mock Data JSON", content: '"Crie um JSON com 20 usuários fictícios para teste"' }
-    ],
-    suggestedSites: [
-      { title: "JSON Generator", url: "#" }
-    ]
-  },
-  {
-    id: 10,
-    title: "Módulo 10: IA na Carreira e Preparação para Entrevistas",
+    title: "Módulo 8: IA na Carreira e Preparação para Entrevistas",
     duration: "2h00",
-    difficulty: "Avançado",
-    thumbnail: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=400&q=80",
-    description: "Simulação de entrevistas técnicas e otimização de perfil.",
-    approach: "Como usar a IA para simular entrevistas técnicas (Live Coding) e otimizar o LinkedIn/Portfólio. Ética e o futuro do trabalho.",
+    difficulty: "Iniciante",
+    thumbnail: "https://images.unsplash.com/photo-1671417722838-3fbaa7f66203?w=800&q=80",
+    description: "Preparação profissional para avaliações técnicas e estruturação de portfólio.",
+    approach: "Simulação de dinâmicas técnicas e entrevistas comportamentais. Otimização de currículos e posicionamento no mercado de tecnologia utilizando IA como ferramenta de suporte.",
     materials: [
-      { title: 'Guia de "Soft Skills para o Dev da Era IA"', type: "PDF", size: "3.1 MB" }
+      { title: "Apresentação: IA na Carreira e Preparação para Entrevistas", type: "PDF", url: "/slides/aula-8-ia-carreira-entrevistas.pdf" },
+      { title: "Recursos e Exercícios: Aula 8", type: "DOCX" }
     ],
     prompts: [
-      { title: "Simulação de Entrevista", content: '"Atue como um recrutador técnico da Google e me faça 3 perguntas difíceis sobre React."' }
-    ],
-    suggestedSites: [
-      { title: "LinkedIn", url: "#" },
-      { title: "Glassdoor", url: "#" }
+      { title: "Simulador de Processo Seletivo", content: '"Conduza uma simulação de entrevista técnica para uma vaga de desenvolvedor júnior. Faça uma pergunta técnica ou comportamental por vez. Após minha resposta, forneça feedback construtivo sobre a clareza, adequação dos termos técnicos utilizados e pontos de melhoria no raciocínio apresentado."' }
     ]
   }
 ];

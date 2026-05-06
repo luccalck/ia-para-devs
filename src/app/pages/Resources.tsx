@@ -67,21 +67,6 @@ Analise sob estas perspectivas:
   },
   {
     category: "Módulo 8",
-    title: "Gerador de Cenários de Teste",
-    description: "Encontre edge cases que você não pensou",
-    prompt: `Preciso testar esta função/componente:
-
-[cole seu código aqui]
-
-Me ajude a pensar em cenários de teste:
-1. Liste TODOS os edge cases possíveis (inputs inválidos, limites, tipos errados)
-2. Para cada caso, descreva: DADO [input], QUANDO [ação], ENTÃO [resultado esperado]
-3. Identifique cenários que eu provavelmente ESQUECI
-4. Sugira testes de integração relevantes
-5. Qual a cobertura mínima aceitável para este código?`,
-  },
-  {
-    category: "Módulos 9-10",
     title: "Preparação para Entrevista Técnica",
     description: "Simule entrevistas com feedback honesto",
     prompt: `Atue como um entrevistador técnico experiente de uma empresa de tecnologia.

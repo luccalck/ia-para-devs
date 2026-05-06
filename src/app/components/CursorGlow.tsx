@@ -5,15 +5,22 @@ export function CursorGlow() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    let animationFrameId: number;
+    let animationFrameId: number | undefined;
 
     const handleMouseMove = (e: MouseEvent) => {
       // Use requestAnimationFrame for smoothest performance
-      if (glowRef.current) {
-        const x = e.clientX - 250;
-        const y = e.clientY - 250;
-        glowRef.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      if (animationFrameId !== undefined) {
+        cancelAnimationFrame(animationFrameId);
       }
+      
+      animationFrameId = requestAnimationFrame(() => {
+        if (glowRef.current) {
+          const x = e.clientX - 250;
+          const y = e.clientY - 250;
+          glowRef.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        }
+      });
+
       if (!isVisible) setIsVisible(true);
     };
 
@@ -27,7 +34,9 @@ export function CursorGlow() {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId !== undefined) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
   }, [isVisible]);
 

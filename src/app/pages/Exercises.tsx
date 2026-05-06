@@ -1,9 +1,9 @@
 import { Lightbulb, CheckCircle2, Dumbbell, ChevronRight, BookOpen } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation, Link } from "react-router";
 import { exerciseData } from "../data/exercises";
 import { lessons } from "../data/lessons";
 import { AnimateOnScroll } from "../components/AnimateOnScroll";
-import { Link } from "react-router";
 
 function getDifficultyColor(difficulty: string) {
   switch (difficulty) {
@@ -19,8 +19,20 @@ function getDifficultyColor(difficulty: string) {
 }
 
 export function Exercises() {
-  const [selectedModule, setSelectedModule] = useState<number | null>(null);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const initialModule = searchParams.get("modulo") ? Number(searchParams.get("modulo")) : null;
+
+  const [selectedModule, setSelectedModule] = useState<number | null>(initialModule);
   const [revealedHints, setRevealedHints] = useState<Set<string>>(new Set());
+
+  // Update selected module if URL changes
+  useEffect(() => {
+    const modulo = searchParams.get("modulo");
+    if (modulo) {
+      setSelectedModule(Number(modulo));
+    }
+  }, [location.search]);
 
   const toggleHint = (exerciseId: string) => {
     setRevealedHints((prev) => {

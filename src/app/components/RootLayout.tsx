@@ -23,7 +23,7 @@ export function RootLayout() {
               <span className="text-sm font-medium">IA para Devs</span>
             </div>
             <p className="text-xs text-muted-foreground text-center">
-              Projeto de Extensão — UniSENAI — Análise e Desenvolvimento de Sistemas
+              Projeto de Extensão — SENAI — Análise e Desenvolvimento de Sistemas
             </p>
             <p className="text-xs text-muted-foreground">
               © {new Date().getFullYear()} Todos os direitos reservados

@@ -3,15 +3,15 @@ import { AnimateOnScroll } from "../components/AnimateOnScroll";
 import { AnimatedBackground } from "../components/AnimatedBackground";
 
 // Import images
-import luccaImg from "../../assets/team/lucca.png";
-import daviImg from "../../assets/team/davi.png";
-import miguelImg from "../../assets/team/miguel.png";
+import luccaImg from "../../assets/team/lucca.jpg";
+import daviImg from "../../assets/team/davi.jpg";
+import miguelImg from "../../assets/team/miguel.jpg";
 import lucasImg from "../../assets/team/lucas.png";
-import kauanImg from "../../assets/team/kauan.png";
+import kauanImg from "../../assets/team/kauan.jpg";
 import joaoImg from "../../assets/team/joao.png";
-import renanImg from "../../assets/team/renan.png";
-import pedroImg from "../../assets/team/pedro.png";
-import anaImg from "../../assets/team/ana.png";
+import renanImg from "../../assets/team/renan.jpg";
+import pedroImg from "../../assets/team/pedro.jpg";
+import anaImg from "../../assets/team/ana.jpg";
 import joaocharleauxImg from "../../assets/team/joaocharleaux.png";
 import wesleyImg from "../../assets/team/wesley.png";
 
@@ -116,7 +116,7 @@ export function Team() {
           Nossa Equipe
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          Estudantes de Análise e Desenvolvimento de Sistemas do UniSENAI
+          Estudantes de Análise e Desenvolvimento de Sistemas do SENAI
           focados em produtividade e ética tecnológica.
         </p>
       </AnimateOnScroll>

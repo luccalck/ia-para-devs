@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Search, Clock, TrendingUp } from "lucide-react";
+import { Search, Clock, TrendingUp, Play } from "lucide-react";
 import { useState } from "react";
 import { lessons as courses } from "../data/lessons";
 import { AnimateOnScroll } from "../components/AnimateOnScroll";
@@ -52,7 +52,7 @@ export function Courses() {
               <Link
                 key={course.id}
                 to={`/aula/${course.id}`}
-                className="group overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 hover:border-primary/80 hover:shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:-translate-y-1"
+                className="group overflow-hidden rounded-xl bg-card transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.2)] hover:-translate-y-1"
               >
                 {/* Thumbnail */}
                 <div className="relative aspect-video overflow-hidden bg-muted">
@@ -65,8 +65,8 @@ export function Courses() {
 
                   {/* Play Icon Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <div className="flex size-16 items-center justify-center rounded-full bg-primary/90 shadow-[0_0_20px_rgba(16,185,129,0.4)]">
-                      <div className="ml-1 size-0 border-y-8 border-l-12 border-y-transparent border-l-primary-foreground" />
+                    <div className="flex size-16 items-center justify-center rounded-full bg-primary/90 shadow-[0_0_20px_rgba(16,185,129,0.4)] text-primary-foreground">
+                      <Play className="size-6 ml-1 fill-current" />
                     </div>
                   </div>
 
@@ -112,7 +112,7 @@ export function Courses() {
       <section className="container mx-auto px-4">
         <div className="grid gap-6 rounded-xl border border-border bg-card p-8 sm:grid-cols-3">
           <div className="text-center">
-            <div className="mb-2 text-3xl text-primary">10</div>
+            <div className="mb-2 text-3xl text-primary">8</div>
             <div className="text-sm text-muted-foreground">Módulos Disponíveis</div>
           </div>
           <div className="text-center">
