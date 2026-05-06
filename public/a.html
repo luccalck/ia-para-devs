@@ -242,11 +242,40 @@
         .qr-wrapper { background: #fff; border-radius: 16px; display: flex; justify-content: center; align-items: center;}
         .qr-wrapper img { width: 100%; height: 100%; }
 
-        /* Controles Fixos no Body */
-        .controls { position: fixed; bottom: 40px; right: 40px; z-index: 100; display: flex; gap: 20px; align-items: center; }
+        /* Controles Fixos no Body (Movidos para o Centro) */
+        .controls { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; gap: 20px; align-items: center; }
         .btn { background-color: var(--bg-surface); color: var(--text-title); border: 1px solid #3f3f46; width: 60px; height: 60px; border-radius: 50%; cursor: pointer; font-size: 24px; display: flex; justify-content: center; align-items: center; transition: all 0.2s; }
         .btn:hover { background-color: var(--accent-green); border-color: var(--accent-green); color: #000;}
         .slide-counter { font-size: 18px; color: var(--text-body); font-variant-numeric: tabular-nums; font-weight: 600; background: var(--bg-surface); padding: 10px 20px; border-radius: 20px; border: 1px solid #3f3f46;}
+
+        /* QR Code Fixo (Watermark) Limpo e Minimalista */
+        .persistent-qr { 
+            position: absolute; 
+            bottom: 40px; 
+            right: 40px; 
+            z-index: 100; 
+            background: #fff; 
+            padding: 8px; 
+            border-radius: 12px; 
+            border: 3px solid var(--accent-green); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            width: 110px; 
+            height: 110px; 
+            transition: all 0.3s ease; 
+        }
+        .persistent-qr:hover { 
+            transform: scale(1.1); 
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.6);
+        }
+        .persistent-qr img { 
+            width: 100%; 
+            height: 100%; 
+            display: block; 
+            border-radius: 4px; 
+        }
     </style>
 </head>
 <body>
@@ -678,6 +707,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- QR Code Fixo da Apresentação Limpo e Minimalista -->
+        <div class="persistent-qr">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://ia-para-devs-peach.vercel.app/a&color=09090b&bgcolor=ffffff" alt="Acesso aos Slides">
         </div>
 
     </div>
