@@ -6,14 +6,13 @@ import { AnimatedBackground } from "../components/AnimatedBackground";
 import luccaImg from "../../assets/team/lucca.jpg";
 import daviImg from "../../assets/team/davi.jpg";
 import miguelImg from "../../assets/team/miguel.jpg";
-import lucasImg from "../../assets/team/lucas.png";
+import lucasImg from "../../assets/team/lucas.jpg";
 import kauanImg from "../../assets/team/kauan.jpg";
-import joaoImg from "../../assets/team/joao.png";
+import joaoImg from "../../assets/team/joao.jpg";
 import renanImg from "../../assets/team/renan.jpg";
 import pedroImg from "../../assets/team/pedro.jpg";
 import anaImg from "../../assets/team/ana.jpg";
-import joaocharleauxImg from "../../assets/team/joaocharleaux.png";
-import wesleyImg from "../../assets/team/wesley.png";
+import joaocharleauxImg from "../../assets/team/joaocharleaux.jpg";
 
 interface TeamMember {
   name: string;
@@ -194,11 +193,9 @@ export function Team() {
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 bg-card/50 border border-border rounded-3xl p-8">
           <div className="relative w-24 h-24 shrink-0">
             <div className="absolute inset-0 bg-secondary/20 rounded-full blur-xl" />
-            <img
-              src={wesleyImg}
-              alt="Prof. Wesley Fioreze"
-              className="relative w-24 h-24 rounded-full object-cover ring-2 ring-secondary/30"
-            />
+            <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-slate-500 to-slate-700 flex items-center justify-center text-white text-2xl font-bold ring-2 ring-secondary/30">
+              WF
+            </div>
           </div>
           <div className="text-center md:text-left">
             <h3 className="text-xl font-bold mb-1">Prof. Wesley Fioreze</h3>
