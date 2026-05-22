@@ -22,6 +22,7 @@ export interface LessonData {
   approach: string;
   materials: Resource[];
   prompts: Prompt[];
+  videoUrl?: string;
 }
 
 export const lessons: LessonData[] = [
