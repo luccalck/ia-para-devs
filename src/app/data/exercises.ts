@@ -108,7 +108,7 @@ export const exerciseData: LessonExercises[] = [
         id: "5-2",
         lessonId: 5,
         title: "Documentação Intencional",
-        problem: 'Extraia um método de média complexidade de qualquer repositório público. Instrua a IA: "Adicione comentários técnicos focados no "porquê" as decisões arquiteturais foram tomadas neste código, evitando comentar o comportamento óbvio de sintaxe".',
+        problem: 'Extraia um método de média complexidade de qualquer repositório público. Instrua a IA: "Adicione comentários técnicos focados no \"porquê\" as decisões arquiteturais foram tomadas neste código, evitando comentar o comportamento óbvio de sintaxe".',
         hint: "Praticar a leitura de comentários construtivos eleva o nível da sua própria documentação profissional.",
       },
     ],
@@ -132,45 +132,5 @@ export const exerciseData: LessonExercises[] = [
         hint: "Este exercício desenvolve a capacidade de abstração arquitetural, permitindo visualizar os modelos de dados implícitos em interfaces do usuário.",
       },
     ],
-  },
-  {
-    lessonId: 7,
-    lesson: "Módulo 7: Refatoração, Clean Code e Performance",
-    exercises: [
-      {
-        id: "7-1",
-        lessonId: 7,
-        title: "Aplicação de Nomenclatura Explícita",
-        problem: 'Forneça à IA um código ofuscado contendo variáveis nomeadas como "x", "arr" e "val". Instrua: "Refatore o trecho fornecido substituindo as variáveis genéricas por nomes descritivos adequados para o contexto de cálculo de folha de pagamento".',
-        hint: "Nomenclatura semântica reduz a carga cognitiva da equipe de engenharia e mitiga a necessidade de comentários excessivos.",
-      },
-      {
-        id: "7-2",
-        lessonId: 7,
-        title: "Redução de Complexidade Ciclomática",
-        problem: 'Solicite à IA a geração de um código com validações condicionais aninhadas (múltiplos IFs dentro de IFs). Após receber o código, exija: "Aplique o conceito de "Early Return" (Retorno Antecipado) para achatar as condicionais e melhorar a legibilidade".',
-        hint: "A remoção de condicionais encadeadas é a forma mais imediata de tornar funções escaláveis e seguras contra bugs lógicos.",
-      },
-    ],
-  },
-  {
-    lessonId: 8,
-    lesson: "Módulo 8: IA na Carreira e Preparação para Entrevistas",
-    exercises: [
-      {
-        id: "8-1",
-        lessonId: 8,
-        title: "Sintetização de Perfil Técnico",
-        problem: 'Instrua a IA: "Elabore um resumo profissional objetivo (máximo 4 linhas) para um currículo de Desenvolvedor Júnior, enfatizando o diferencial na utilização técnica e arquitetural da Engenharia Assistida e metodologias lógicas".',
-        hint: "Valorizar o foco em estruturação algorítmica e raciocínio crítico destaca seu perfil frente a candidatos com abordagem de codificação puramente mecânica.",
-      },
-      {
-        id: "8-2",
-        lessonId: 8,
-        title: "Análise de Requisitos e Lacunas",
-        problem: 'Cole a descrição de uma vaga real para Desenvolvedor Backend Júnior. Solicite à IA: "Mapeie as competências exigidas na descrição e cruze com meus conhecimentos atuais em lógica de programação. Sugira um cronograma prático focando nos requisitos primários faltantes".',
-        hint: "O direcionamento de estudos baseado em demandas ativas do mercado otimiza significativamente sua inserção profissional no setor de tecnologia.",
-      },
-    ],
-  },
+  }
 ];

@@ -94,29 +94,44 @@ export function Lesson() {
             {/* Video Player */}
             <AnimateOnScroll>
               <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[0_0_24px_rgba(0,0,0,0.3)]">
-                <div className="relative aspect-video bg-gradient-to-br from-zinc-900 to-zinc-800">
-                  <div className="flex size-full items-center justify-center">
-                    <div className="text-center">
-                      <div className="mb-4 flex justify-center">
-                        <div className="flex size-20 items-center justify-center rounded-full bg-primary/20 transition-transform hover:scale-110 cursor-pointer">
-                          <Play className="size-10 text-primary" />
+                <div className="relative aspect-video bg-zinc-950">
+                  {currentLesson.videoUrl ? (
+                    <video
+                      src={currentLesson.videoUrl}
+                      poster={currentLesson.thumbnail}
+                      controls
+                      className="size-full object-contain"
+                    />
+                  ) : (
+                    <div className="flex size-full items-center justify-center bg-gradient-to-br from-zinc-900 via-zinc-950 to-zinc-900 p-6 text-center">
+                      <div className="max-w-md">
+                        <div className="mb-4 flex justify-center">
+                          <div className="flex size-16 items-center justify-center rounded-full bg-primary/10 border border-primary/20 text-primary">
+                            <Play className="size-8 opacity-60" />
+                          </div>
                         </div>
+                        <h3 className="text-lg font-bold mb-2">Gravação em Processamento</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          A gravação em vídeo deste módulo estará disponível em breve.
+                          Enquanto isso, você já pode acessar e resolver todos os
+                          <strong className="text-foreground"> Exercícios Práticos</strong> e copiar os
+                          <strong className="text-foreground"> Prompts de Ouro</strong> na aba de recursos abaixo!
+                        </p>
                       </div>
-                      <p className="text-muted-foreground">
-                        Player de Vídeo — Módulo {currentLesson.id}
-                      </p>
                     </div>
-                  </div>
-                  {/* Overlay badges */}
-                  <div className="absolute top-4 left-4 flex items-center gap-2">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm ${diffColor.badge}`}>
-                      {currentLesson.difficulty}
-                    </span>
-                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-black/50 text-white backdrop-blur-sm flex items-center gap-1">
-                      <Clock className="size-3" />
-                      {currentLesson.duration}
-                    </span>
-                  </div>
+                  )}
+                  {/* Overlay badges (always shown, styled perfectly) */}
+                  {!currentLesson.videoUrl && (
+                    <div className="absolute top-4 left-4 flex items-center gap-2">
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm ${diffColor.badge}`}>
+                        {currentLesson.difficulty}
+                      </span>
+                      <span className="px-3 py-1 rounded-full text-xs font-medium bg-black/50 text-white backdrop-blur-sm flex items-center gap-1">
+                        <Clock className="size-3" />
+                        {currentLesson.duration}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </AnimateOnScroll>

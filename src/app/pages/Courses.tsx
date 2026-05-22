@@ -112,11 +112,11 @@ export function Courses() {
       <section className="container mx-auto px-4">
         <div className="grid gap-6 rounded-xl border border-border bg-card p-8 sm:grid-cols-3">
           <div className="text-center">
-            <div className="mb-2 text-3xl text-primary">8</div>
+            <div className="mb-2 text-3xl text-primary">6</div>
             <div className="text-sm text-muted-foreground">Módulos Disponíveis</div>
           </div>
           <div className="text-center">
-            <div className="mb-2 text-3xl text-primary">18h05</div>
+            <div className="mb-2 text-3xl text-primary">10h35</div>
             <div className="text-sm text-muted-foreground">Conteúdo Total</div>
           </div>
           <div className="text-center">

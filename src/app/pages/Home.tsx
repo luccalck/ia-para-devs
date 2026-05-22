@@ -58,15 +58,15 @@ export function Home() {
         <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             <div className="text-center animate-fade-in-up">
-              <div className="text-3xl font-bold text-primary mb-1">8</div>
+              <div className="text-3xl font-bold text-primary mb-1">6</div>
               <div className="text-sm text-muted-foreground">Módulos Completos</div>
             </div>
             <div className="text-center animate-fade-in-up animate-delay-100">
-              <div className="text-3xl font-bold text-primary mb-1">16</div>
+              <div className="text-3xl font-bold text-primary mb-1">12</div>
               <div className="text-sm text-muted-foreground">Exercícios Práticos</div>
             </div>
             <div className="text-center animate-fade-in-up animate-delay-200">
-              <div className="text-3xl font-bold text-primary mb-1">18h</div>
+              <div className="text-3xl font-bold text-primary mb-1">10h</div>
               <div className="text-sm text-muted-foreground">de Conteúdo</div>
             </div>
             <div className="text-center animate-fade-in-up animate-delay-300">
@@ -96,7 +96,7 @@ export function Home() {
             </div>
             <h3 className="mb-3 text-xl font-semibold">Aulas Gravadas</h3>
             <p className="text-muted-foreground leading-relaxed">
-              Acesso a 8 módulos completos de vídeo-aulas sobre fundamentos de programação,
+              Acesso a 6 módulos completos de vídeo-aulas sobre fundamentos de programação,
               algoritmos e estruturas de dados.
             </p>
           </Link>
@@ -110,7 +110,7 @@ export function Home() {
             </div>
             <h3 className="mb-3 text-xl font-semibold">Exercícios Práticos</h3>
             <p className="text-muted-foreground leading-relaxed">
-              16 exercícios com pistas socráticas que desenvolvem seu raciocínio lógico
+              12 exercícios com pistas socráticas que desenvolvem seu raciocínio lógico
               sem depender de soluções prontas.
             </p>
           </Link>

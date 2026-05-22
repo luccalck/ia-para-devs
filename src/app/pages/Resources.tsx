@@ -50,7 +50,7 @@ Explique da seguinte forma:
 6. Quais perguntas eu deveria me fazer para entender melhor?`,
   },
   {
-    category: "Módulos 6-7",
+    category: "Módulo 6",
     title: "Arquiteto de Sistemas — Revisão de Código",
     description: "Crítica construtiva focada em arquitetura e clean code",
     prompt: `Atue como um arquiteto de software sênior revisando meu código.
@@ -66,7 +66,7 @@ Analise sob estas perspectivas:
 6. Dê uma nota de 1-10 e justifique`,
   },
   {
-    category: "Módulo 8",
+    category: "Carreira",
     title: "Preparação para Entrevista Técnica",
     description: "Simule entrevistas com feedback honesto",
     prompt: `Atue como um entrevistador técnico experiente de uma empresa de tecnologia.

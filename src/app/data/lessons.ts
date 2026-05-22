@@ -127,37 +127,5 @@ export const lessons: LessonData[] = [
       { title: "Arquiteto de Domínio", content: '"Desenvolverei um sistema com a seguinte finalidade: [IDEIA DO SISTEMA]. Auxilie na modelagem inicial dos dados identificando as entidades primárias necessárias e seus atributos cruciais, garantindo uma organização relacional eficiente."' }
     ],
     videoUrl: "/videos/aula 6 ia para devs.mp4"
-  },
-  {
-    id: 7,
-    title: "Módulo 7: Refatoração, Clean Code e Performance",
-    duration: "1h45",
-    difficulty: "Iniciante",
-    thumbnail: "https://images.unsplash.com/photo-1547190027-9156686aa2f0?w=800&q=80",
-    description: "Aprimoramento de qualidade de software focado em legibilidade e manutenibilidade.",
-    approach: "Refatoração de lógicas não otimizadas através de fundamentos limpos, focando em redução de complexidade ciclomática e nomenclatura explícita.",
-    materials: [
-      { title: "Apresentação: Código Limpo e Rápido", type: "PDF", url: "/slides/aula-7-codigo-limpo.pdf" },
-      { title: "Recursos e Exercícios: Aula 7", type: "DOCX" }
-    ],
-    prompts: [
-      { title: "Revisor de Qualidade", content: '"Efetue a revisão do seguinte trecho de código: [COLE O CÓDIGO]. Forneça 3 sugestões técnicas focadas estritamente em legibilidade, manutenibilidade e nomenclatura, alinhadas aos princípios de Clean Code, sem alterar a regra de negócio central."' }
-    ]
-  },
-  {
-    id: 8,
-    title: "Módulo 8: IA na Carreira e Preparação para Entrevistas",
-    duration: "2h00",
-    difficulty: "Iniciante",
-    thumbnail: "https://images.unsplash.com/photo-1671417722838-3fbaa7f66203?w=800&q=80",
-    description: "Preparação profissional para avaliações técnicas e estruturação de portfólio.",
-    approach: "Simulação de dinâmicas técnicas e entrevistas comportamentais. Otimização de currículos e posicionamento no mercado de tecnologia utilizando IA como ferramenta de suporte.",
-    materials: [
-      { title: "Apresentação: IA na Carreira e Preparação para Entrevistas", type: "PDF", url: "/slides/aula-8-ia-carreira-entrevistas.pdf" },
-      { title: "Recursos e Exercícios: Aula 8", type: "DOCX" }
-    ],
-    prompts: [
-      { title: "Simulador de Processo Seletivo", content: '"Conduza uma simulação de entrevista técnica para uma vaga de desenvolvedor júnior. Faça uma pergunta técnica ou comportamental por vez. Após minha resposta, forneça feedback construtivo sobre a clareza, adequação dos termos técnicos utilizados e pontos de melhoria no raciocínio apresentado."' }
-    ]
   }
 ];
