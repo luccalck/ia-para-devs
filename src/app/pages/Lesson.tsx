@@ -121,13 +121,23 @@ export function Lesson() {
                       </div>
                     </div>
                   ) : currentLesson.videoUrl ? (
-                    <video
-                      src={currentLesson.videoUrl}
-                      poster={currentLesson.thumbnail}
-                      controls
-                      onError={() => setVideoError(true)}
-                      className="size-full object-contain"
-                    />
+                    currentLesson.videoUrl.includes("youtube") ? (
+                      <iframe
+                        src={currentLesson.videoUrl}
+                        title={currentLesson.title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        className="size-full border-0"
+                      />
+                    ) : (
+                      <video
+                        src={currentLesson.videoUrl}
+                        poster={currentLesson.thumbnail}
+                        controls
+                        onError={() => setVideoError(true)}
+                        className="size-full object-contain"
+                      />
+                    )
                   ) : (
                     <div className="flex size-full items-center justify-center bg-gradient-to-br from-zinc-900 via-zinc-950 to-zinc-900 p-6 text-center">
                       <div className="max-w-md">

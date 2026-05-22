@@ -41,7 +41,7 @@ export const lessons: LessonData[] = [
     prompts: [
       { title: "O Mentor Socrático", content: '"Atue como um instrutor técnico sênior paciente. Sou iniciante em desenvolvimento de software. Não forneça soluções prontas. Ao solicitar ajuda, responda com perguntas guiadas que estimulem o raciocínio lógico. Se houver dificuldade extrema, utilize analogias do cotidiano para explicar conceitos técnicos."' }
     ],
-    videoUrl: "/videos/aula 1 ia para devs.mp4"
+    videoUrl: "https://www.youtube.com/embed/h2mGLHN8qZQ"
   },
   {
     id: 2,
@@ -58,7 +58,7 @@ export const lessons: LessonData[] = [
     prompts: [
       { title: "Passo a Passo Estruturado", content: '"Tenho o seguinte problema de lógica estrutural: [DESCREVA O PROBLEMA]. Antes da geração de código, crie uma sequência de passos lógicos sobre como o sistema deve processar a informação. Utilize linguagem clara, focando na abstração do problema."' }
     ],
-    videoUrl: "/videos/aula 2 ia para devs.mp4"
+    videoUrl: "https://www.youtube.com/embed/HA0dLGRAfII"
   },
   {
     id: 3,
@@ -75,7 +75,7 @@ export const lessons: LessonData[] = [
     prompts: [
       { title: "Assistente de Configuração", content: '"Preciso configurar a seguinte ferramenta no meu ambiente: [NOME DA FERRAMENTA]. Forneça um guia passo a passo estruturado para a instalação. Caso ocorram erros no terminal, enviarei a saída (log) para que você me auxilie na resolução."' }
     ],
-    videoUrl: "/videos/aula 3 ia para devs.mp4"
+    videoUrl: "https://www.youtube.com/embed/k_A03W58kuw"
   },
   {
     id: 4,
@@ -92,7 +92,7 @@ export const lessons: LessonData[] = [
     prompts: [
       { title: "Intérprete de Stack Trace", content: '"O sistema retornou a seguinte exceção durante a execução: [COLE O ERRO]. Analise o stack trace fornecido e explique a causa raiz do problema em linguagem acessível, indicando onde o fluxo lógico pode ter falhado."' }
     ],
-    videoUrl: "/videos/aula 4 ia para devs.mp4"
+    videoUrl: "https://www.youtube.com/embed/Dbsv_k1RTIQ"
   },
   {
     id: 5,
@@ -109,7 +109,7 @@ export const lessons: LessonData[] = [
     prompts: [
       { title: "Analisador de Lógica", content: '"Analise o seguinte trecho de código estrutural: [COLE O CÓDIGO]. Descreva o fluxo de processamento de forma sequencial. Utilize analogias claras para elucidar conceitos complexos, como alocação de memória ou concorrência, caso existam."' }
     ],
-    videoUrl: "/videos/aula 5 ia para devs.mp4"
+    videoUrl: "https://www.youtube.com/embed/1AtPmqb9XmE"
   },
   {
     id: 6,
@@ -126,6 +126,6 @@ export const lessons: LessonData[] = [
     prompts: [
       { title: "Arquiteto de Domínio", content: '"Desenvolverei um sistema com a seguinte finalidade: [IDEIA DO SISTEMA]. Auxilie na modelagem inicial dos dados identificando as entidades primárias necessárias e seus atributos cruciais, garantindo uma organização relacional eficiente."' }
     ],
-    videoUrl: "/videos/aula 6 ia para devs.mp4"
+    videoUrl: "https://www.youtube.com/embed/aVV62CcssPo"
   }
 ];
