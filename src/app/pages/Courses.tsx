@@ -116,7 +116,7 @@ export function Courses() {
             <div className="text-sm text-muted-foreground">Módulos Disponíveis</div>
           </div>
           <div className="text-center">
-            <div className="mb-2 text-3xl text-primary">10h35</div>
+            <div className="mb-2 text-3xl text-primary">3h51</div>
             <div className="text-sm text-muted-foreground">Conteúdo Total</div>
           </div>
           <div className="text-center">

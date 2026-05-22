@@ -66,7 +66,7 @@ export function Home() {
               <div className="text-sm text-muted-foreground">Exercícios Práticos</div>
             </div>
             <div className="text-center animate-fade-in-up animate-delay-200">
-              <div className="text-3xl font-bold text-primary mb-1">10h</div>
+              <div className="text-3xl font-bold text-primary mb-1">3h51</div>
               <div className="text-sm text-muted-foreground">de Conteúdo</div>
             </div>
             <div className="text-center animate-fade-in-up animate-delay-300">

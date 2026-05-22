@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router";
 import { Download, Copy, Check, Play, ChevronLeft, ChevronRight, ExternalLink, Lightbulb, Dumbbell, CheckCircle2, BookOpen, FileText, Clock } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { lessons } from "../data/lessons";
 import { exerciseData } from "../data/exercises";
 import { AnimateOnScroll } from "../components/AnimateOnScroll";
@@ -26,6 +26,11 @@ export function Lesson() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [revealedHints, setRevealedHints] = useState<Set<string>>(new Set());
   const [activeTab, setActiveTab] = useState<TabId>("exercises");
+  const [videoError, setVideoError] = useState(false);
+
+  useEffect(() => {
+    setVideoError(false);
+  }, [id]);
 
   const handleCopy = (text: string, index: number) => {
     navigator.clipboard.writeText(text);
@@ -95,11 +100,32 @@ export function Lesson() {
             <AnimateOnScroll>
               <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[0_0_24px_rgba(0,0,0,0.3)]">
                 <div className="relative aspect-video bg-zinc-950">
-                  {currentLesson.videoUrl ? (
+                  {videoError ? (
+                    <div className="flex size-full items-center justify-center bg-gradient-to-br from-zinc-900 via-zinc-950 to-zinc-900 p-8 text-center">
+                      <div className="max-w-md">
+                        <div className="mb-4 flex justify-center">
+                          <div className="flex size-16 items-center justify-center rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 animate-pulse">
+                            <Play className="size-8 opacity-80" />
+                          </div>
+                        </div>
+                        <h3 className="text-lg font-bold mb-2 text-orange-400">Vídeo Local (Apenas Offline)</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                          Os vídeos deste curso (5.3 GB no total) estão configurados para reprodução local instantânea. Eles não são enviados à nuvem (Vercel/GitHub) para evitar lentidão e limites de repositório.
+                        </p>
+                        <div className="rounded-lg bg-black/40 border border-border p-4 text-left font-mono text-xs text-muted-foreground">
+                          <div className="text-primary mb-1"># Para assistir a esta aula localmente:</div>
+                          <div>1. Certifique-se de que a pasta <span className="text-foreground">aulas</span> contém o arquivo da aula correspondente</div>
+                          <div>2. No seu terminal local, execute:</div>
+                          <div className="text-foreground mt-2 bg-zinc-900 p-2 rounded border border-border select-all">npm run dev</div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : currentLesson.videoUrl ? (
                     <video
                       src={currentLesson.videoUrl}
                       poster={currentLesson.thumbnail}
                       controls
+                      onError={() => setVideoError(true)}
                       className="size-full object-contain"
                     />
                   ) : (
@@ -121,7 +147,7 @@ export function Lesson() {
                     </div>
                   )}
                   {/* Overlay badges (always shown, styled perfectly) */}
-                  {!currentLesson.videoUrl && (
+                  {(!currentLesson.videoUrl || videoError) && (
                     <div className="absolute top-4 left-4 flex items-center gap-2">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm ${diffColor.badge}`}>
                         {currentLesson.difficulty}
