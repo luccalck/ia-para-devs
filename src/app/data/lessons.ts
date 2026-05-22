@@ -126,6 +126,6 @@ export const lessons: LessonData[] = [
     prompts: [
       { title: "Arquiteto de Domínio", content: '"Desenvolverei um sistema com a seguinte finalidade: [IDEIA DO SISTEMA]. Auxilie na modelagem inicial dos dados identificando as entidades primárias necessárias e seus atributos cruciais, garantindo uma organização relacional eficiente."' }
     ],
-    videoUrl: "https://www.youtube.com/embed/aVV62CcssPo"
+    videoUrl: "https://www.youtube.com/embed/inb7ehZp9TE"
   }
 ];
