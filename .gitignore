@@ -1,22 +1,32 @@
 node_modules/
 dist/
 dist-ssr/
+build/
+.vite/
+*.tsbuildinfo
 *.local
+
+.env
+.env.local
+.env.*.local
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-node_modules
+*.swp
 
-public/videos/
-public/videos
+# OS
+.DS_Store
+Thumbs.db
 
-aulas/
-aulas
+# Logs
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+*.log
