@@ -1,39 +1,39 @@
-# IA para Devs — Curso de Extensão
+# IA para Devs — Extension Course
 
-Landing page e plataforma do curso de extensão **"IA para Devs"** ministrado pela equipe ao longo de 8 aulas. Projeto desenvolvido como atividade de Extensão Universitária — SENAI ADS.
+Landing page and platform for the **"AI for Devs"** extension course taught by the team across 8 lessons. Developed as a University Extension activity — SENAI ADS.
 
 ## Stack
 
 - **React 19** + **TypeScript** + **Vite**
 - **Tailwind CSS v4** + **Shadcn/UI** + **Radix UI**
-- **MUI** (componentes auxiliares)
+- **MUI** (auxiliary components)
 - **Framer Motion** / **Embla Carousel** / **Recharts**
 - **React Router v7**
 
-## Conteúdo do curso
+## Course content
 
-| Aula | Tema | Slides |
+| Lesson | Topic | Slides |
 |---|---|---|
-| 1 | Mindset do Engenheiro | [pdf](public/slides/aula-1-mindset-engenheiro.pdf) |
-| 2 | Lógica de Programação | [pdf](public/slides/aula-2-logica-programacao.pdf) |
-| 3 | Setup de Ambiente | [pdf](public/slides/aula-3-setup-ambiente.pdf) |
-| 4 | Debugging Consciente | [pdf](public/slides/aula-4-debugging-consciente.pdf) |
-| 5 | Engenharia Reversa | [pdf](public/slides/aula-5-engenharia-reversa.pdf) |
-| 6 | Arquitetura & Modelagem | [pdf](public/slides/aula-6-arquitetura-modelagem.pdf) |
-| 7 | Código Limpo | [pdf](public/slides/aula-7-codigo-limpo.pdf) |
-| 8 | IA, Carreira & Entrevistas | [pdf](public/slides/aula-8-ia-carreira-entrevistas.pdf) |
+| 1 | Engineer's Mindset | [pdf](public/slides/aula-1-mindset-engenheiro.pdf) |
+| 2 | Programming Logic | [pdf](public/slides/aula-2-logica-programacao.pdf) |
+| 3 | Environment Setup | [pdf](public/slides/aula-3-setup-ambiente.pdf) |
+| 4 | Conscious Debugging | [pdf](public/slides/aula-4-debugging-consciente.pdf) |
+| 5 | Reverse Engineering | [pdf](public/slides/aula-5-engenharia-reversa.pdf) |
+| 6 | Architecture & Modeling | [pdf](public/slides/aula-6-arquitetura-modelagem.pdf) |
+| 7 | Clean Code | [pdf](public/slides/aula-7-codigo-limpo.pdf) |
+| 8 | AI, Career & Interviews | [pdf](public/slides/aula-8-ia-carreira-entrevistas.pdf) |
 
-## Estrutura
+## Structure
 
 ```
-ProjetoExtensao/
+ia-para-devs/
 ├── src/
-│   ├── app/              # Páginas e componentes
-│   ├── assets/           # Imagens da equipe
+│   ├── app/              # Pages and components
+│   ├── assets/           # Team images
 │   ├── styles/           # Tailwind + theme + globals
 │   └── main.tsx          # Entry point
 ├── public/
-│   ├── slides/           # 8 PDFs das aulas
+│   ├── slides/           # 8 lesson PDFs
 │   ├── equipe.jpg
 │   └── favicon.svg
 ├── ATTRIBUTIONS.md
@@ -41,14 +41,14 @@ ProjetoExtensao/
 └── vite.config.ts
 ```
 
-## Como rodar
+## How to run
 
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm run build    # build de produção em dist/
+npm run build    # production build in dist/
 ```
 
-## Créditos
+## Credits
 
-Veja [`ATTRIBUTIONS.md`](./ATTRIBUTIONS.md) para créditos de bibliotecas e assets.
+See [`ATTRIBUTIONS.md`](./ATTRIBUTIONS.md) for library and asset credits.
